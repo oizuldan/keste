@@ -1,0 +1,13 @@
+export const USERNAME_CHANGED = 'username_changed';
+export const PASSWORD_CHANGED = 'password_changed';
+export const LOGIN_USER = 'login_user';
+export const LOGIN_USER_SUCCESS = 'login_user_success';
+export const LOGIN_USER_FAILED = 'login_user_failed';
+export const ITEMS_FETCHED = 'items_fetched';
+export const ITEMS_CHANGED = 'items_changed';
+export const FETCHED_IMAGE = 'fetched_image';
+export const FETCHED_INFO = 'fetched_info';
+export const FETCHED_ID = 'fetched_id';
+export const LOG_OUT = 'log_out';
+export const LOG_OUT2 = 'log_out2';
+export const COURSE_COLORS_FROM_STORAGE = 'course_colors_from_storage';
