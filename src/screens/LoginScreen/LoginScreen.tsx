@@ -14,6 +14,7 @@ import {
 	ActivityIndicator,
 	TouchableOpacity
 } from 'react-native';
+import SharedGroupPreferences from 'react-native-shared-group-preferences';
 
 import { TextInput } from 'react-native-paper';
 import { StackActions, NavigationActions } from 'react-navigation';
@@ -29,6 +30,8 @@ import {
 	loginUser,
 	idFetched
 } from './LoginAction';
+
+const appGroupIdentifier = "group.keste";
 
 const window = Dimensions.get('window');
 
@@ -129,7 +132,7 @@ class LoginScreen extends React.Component<LoginScreenProps, LoginScreenState> {
 		this.props.loginUser({ username, password, changeScreen });
 	};
 
-	private changeScreen = () => {
+	private changeScreen = async () => {
 		const UID = {
 			username: this.props.username,
 			items: this.props.items,
@@ -143,6 +146,9 @@ class LoginScreen extends React.Component<LoginScreenProps, LoginScreenState> {
 			['UID', JSON.stringify(UID)],
 			['FL', JSON.stringify(FL)]
 		]);
+
+		SharedGroupPreferences.setItem('UID', UID, appGroupIdentifier);
+
 		this.props.navigation.dispatch(
 			StackActions.reset({
 				index: 0,

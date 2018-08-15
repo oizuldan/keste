@@ -1,8 +1,11 @@
 
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { Component } from 'react';
+import { StyleSheet, Text, View, AsyncStorage } from 'react-native';
 import { DevMenu } from 'react-native-today-widget';
 import { connect} from 'redux';
+import SharedGroupPreferences from 'react-native-shared-group-preferences';
+
+const appGroupIdentifier = "group.keste";
 
 const styles = StyleSheet.create({
   container: {
@@ -87,16 +90,37 @@ const renderItem = (item) => {
 }
 
 const TodayWidget = (props) => (
-  <View onLayout={this.onLayout} style={styles.widget}>
-    <FlatList
+  <View style={styles.widget}>
+    <Text>Test</Text>
+    {/* <FlatList
       data={props.items[date]}
       renderItem={item => renderItem(item)}
       keyExtractor={this.keyExtractor}
-    />
+    /> */}
   </View>
 );
-const mapStateToProps = ({ info }) => {
-	const { items } = info;
-	return { items };
-};
-export default connect(mapStateToProps)(TodayWidget);
+
+class Widget extends Component {
+  state = {
+    text: 'TEST2'
+  }
+
+  public async componentDidMount() {
+    try {
+      const uid: any = await SharedGroupPreferences.getItem('UID', appGroupIdentifier);
+      this.setState({ text: uid.username });
+    } catch (e) {
+      this.setState({ text: 'ERROR' + e });
+    }
+  }
+
+  public render() {
+    return (
+      <View style={styles.widget}>
+        <Text>{this.state.text}</Text>
+      </View>
+    );
+  }
+}
+
+export default Widget;
